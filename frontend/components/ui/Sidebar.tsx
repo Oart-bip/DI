@@ -8,6 +8,7 @@ const itensMenu = [
   { href: '/clientes', label: 'Clientes', codigo: '02' },
   { href: '/produtos', label: 'Produtos', codigo: '03' },
   { href: '/pedidos', label: 'Pedidos', codigo: '04' },
+  { href: '/visualizacao', label: 'Visualizacao', codigo: '05' },
 ];
 
 export default function Sidebar() {
