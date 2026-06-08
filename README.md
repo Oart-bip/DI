@@ -19,4 +19,6 @@ Acesse: http://localhost:3000
 
 ---
 
-dos requisitos funcionais, temos o cadastro de clientes
+- cadastro de clientes feito 
+
+cada alteracao feita favor mencionar na descricao
