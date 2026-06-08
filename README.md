@@ -19,9 +19,9 @@ Acesse: http://localhost:3000
 
 
 Para rodar o serviço Python (terceiro terminal):
-bashcd ml
+cd ml
 pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
+python -m uvicorn main:app --reload --port 8000
 
 ---
 
