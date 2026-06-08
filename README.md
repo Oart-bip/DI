@@ -21,4 +21,4 @@ Acesse: http://localhost:3000
 
 - cadastro de clientes feito 
 
-cada alteracao feita favor mencionar na descricao
+cada alteracao feita favor mencionar na descricao e dar commit
