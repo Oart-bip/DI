@@ -4,12 +4,12 @@ import { useEffect } from 'react';
 
 interface ModalProps {
   titulo: string;
-  subtitulo?: string;
+  subtítulo?: string;
   children: React.ReactNode;
   onFechar: () => void;
 }
 
-export default function Modal({ titulo, subtitulo, children, onFechar }: ModalProps) {
+export default function Modal({ titulo, subtítulo, children, onFechar }: ModalProps) {
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onFechar();
@@ -75,7 +75,7 @@ export default function Modal({ titulo, subtitulo, children, onFechar }: ModalPr
             color: '#C8401A',
             marginBottom: '8px',
           }}>
-            {subtitulo || 'Formulário'}
+            {subtítulo || 'Formulário'}
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <h2 style={{

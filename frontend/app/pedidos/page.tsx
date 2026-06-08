@@ -83,7 +83,7 @@ export default function PedidosPage() {
       setExcluindo(true);
       await pedidosService.remover(pedidoParaExcluir.id);
       setPedidos((prev) => prev.filter((p) => p.id !== pedidoParaExcluir.id));
-      mostrarToast('pedido excluido.', 'sucesso');
+      mostrarToast('pedido excluído.', 'sucesso');
       setPedidoParaExcluir(null);
     } catch (err) {
       mostrarToast(err instanceof Error ? err.message : 'erro ao excluir pedido', 'erro');
@@ -98,7 +98,7 @@ export default function PedidosPage() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <div style={{ fontFamily: 'var(--fonte-mono)', fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#C8401A', marginBottom: '12px' }}>
-              modulo 04 — vendas
+              módulo 04 — vendas
             </div>
             <div style={{ height: '3px', backgroundColor: '#1A1A18', marginBottom: '20px', width: '60px' }} />
             <h1 style={{ fontFamily: 'var(--fonte-serif)', fontSize: '42px', color: '#1A1A18', margin: 0, lineHeight: 1.05 }}>
@@ -150,7 +150,7 @@ export default function PedidosPage() {
       )}
 
       {modalAberto && (
-        <Modal titulo="Novo pedido" subtitulo="Criacao" onFechar={() => { if (!salvando) setModalAberto(false); }}>
+        <Modal titulo="Novo pedido" subtítulo="Criação" onFechar={() => { if (!salvando) setModalAberto(false); }}>
           <FormPedido
             clientes={clientes}
             produtos={produtos}

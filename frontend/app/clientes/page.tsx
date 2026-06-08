@@ -259,7 +259,7 @@ export default function ClientesPage() {
       {estadoModal === 'criando' && (
         <Modal
           titulo="Novo cliente"
-          subtitulo="Cadastro"
+          subtítulo="Cadastro"
           onFechar={fecharModal}
         >
           <FormCliente
@@ -274,7 +274,7 @@ export default function ClientesPage() {
       {estadoModal === 'editando' && clienteSelecionado && (
         <Modal
           titulo="Editar cliente"
-          subtitulo="Atualização"
+          subtítulo="Atualização"
           onFechar={fecharModal}
         >
           <FormCliente

@@ -8,8 +8,9 @@ const itensMenu = [
   { href: '/clientes', label: 'Clientes', codigo: '02' },
   { href: '/produtos', label: 'Produtos', codigo: '03' },
   { href: '/pedidos', label: 'Pedidos', codigo: '04' },
-  { href: '/visualizacao', label: 'Visualizacao', codigo: '05' },
-  { href: '/decisao', label: 'Decisao', codigo: '06' },
+  { href: '/visualizacao', label: 'Visualização', codigo: '05' },
+  { href: '/decisao', label: 'Decisão', codigo: '06' },
+  { href: '/relatorios', label: 'Relatórios', codigo: '07' },
 ];
 
 export default function Sidebar() {
@@ -29,7 +30,7 @@ export default function Sidebar() {
           DataViz
         </div>
         <div style={{ fontFamily: 'var(--fonte-mono)', fontSize: '10px', color: '#C8401A', letterSpacing: '0.08em', marginTop: '4px' }}>
-          analise empresarial
+          Análise Empresarial
         </div>
       </div>
 
@@ -64,7 +65,7 @@ export default function Sidebar() {
 
       <div style={{ padding: '16px 24px', borderTop: '1px solid #2A2A28' }}>
         <div style={{ fontFamily: 'var(--fonte-mono)', fontSize: '9px', color: '#4A4A48', letterSpacing: '0.08em' }}>
-          projeto academico<br />
+          projeto acadêmico<br />
           eng. de software — 2025
         </div>
       </div>

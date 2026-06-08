@@ -1,29 +1,29 @@
 'use client';
 
 import { useState } from 'react';
-import type { RespostaAnalise } from '@/types/decisao';
+import type { RespostaAnálise } from '@/types/decisao';
 import { decisaoService } from '@/services/decisaoService';
 import TabelaDecisao from '@/components/decisao/TabelaDecisao';
 import Toast from '@/components/ui/Toast';
 
 interface ToastState { mensagem: string; tipo: 'sucesso' | 'erro'; }
 
-export default function DecisaoPage() {
-  const [resultado, setResultado] = useState<RespostaAnalise | null>(null);
+export default function DecisãoPage() {
+  const [resultado, setResultado] = useState<RespostaAnálise | null>(null);
   const [analisando, setAnalisando] = useState(false);
   const [toast, setToast] = useState<ToastState | null>(null);
-  const [ultimaAnalise, setUltimaAnalise] = useState<Date | null>(null);
+  const [ultimaAnálise, setUltimaAnálise] = useState<Date | null>(null);
 
-  async function executarAnalise() {
+  async function executarAnálise() {
     try {
       setAnalisando(true);
       const res = await decisaoService.analisar();
       setResultado(res);
-      setUltimaAnalise(new Date());
+      setUltimaAnálise(new Date());
       setToast({ mensagem: `${res.total_clientes_analisados} clientes analisados com sucesso`, tipo: 'sucesso' });
     } catch (err) {
       setToast({
-        mensagem: err instanceof Error ? err.message : 'erro ao executar analise',
+        mensagem: err instanceof Error ? err.message : 'erro ao executar análise',
         tipo: 'erro',
       });
     } finally {
@@ -32,7 +32,7 @@ export default function DecisaoPage() {
   }
 
   const altosRisco = resultado?.resultados.filter(r => r.classificacao_churn === 'alto').length ?? 0;
-  const altaPropensao = resultado?.resultados.filter(r => r.classificacao_propensao === 'alta').length ?? 0;
+  const altaPropensão = resultado?.resultados.filter(r => r.classificacao_propensão === 'alta').length ?? 0;
 
   return (
     <div>
@@ -41,21 +41,21 @@ export default function DecisaoPage() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <div style={{ fontFamily: 'var(--fonte-mono)', fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#C8401A', marginBottom: '12px' }}>
-              modulo 06 — decisao estrategica
+              módulo 06 — decisão estrategica
             </div>
             <div style={{ height: '3px', backgroundColor: '#1A1A18', marginBottom: '20px', width: '60px' }} />
             <h1 style={{ fontFamily: 'var(--fonte-serif)', fontSize: '42px', color: '#1A1A18', margin: 0, lineHeight: 1.05 }}>
-              Decisao
+              Decisão
             </h1>
             <p style={{ fontFamily: 'var(--fonte-sans)', fontSize: '14px', color: '#6B6B65', marginTop: '10px', lineHeight: 1.5, maxWidth: '480px', fontWeight: 300 }}>
-              Random Forest para classificacao de churn e propensao a compra.
+              Random Forest para classificacao de churn e propensão a compra.
               Os dados sao normalizados via Z-Score antes da inferencia.
             </p>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px', marginTop: '8px' }}>
             <button
-              onClick={executarAnalise}
+              onClick={executarAnálise}
               disabled={analisando}
               style={{
                 padding: '11px 22px', backgroundColor: analisando ? '#6B6B65' : '#1A1A18',
@@ -67,11 +67,11 @@ export default function DecisaoPage() {
               onMouseEnter={(e) => { if (!analisando) (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#C8401A'; }}
               onMouseLeave={(e) => { if (!analisando) (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#1A1A18'; }}
             >
-              {analisando ? 'analisando...' : 'executar analise'}
+              {analisando ? 'analisando...' : 'executar análise'}
             </button>
-            {ultimaAnalise && (
+            {ultimaAnálise && (
               <span style={{ fontFamily: 'var(--fonte-mono)', fontSize: '9px', color: '#BBBAB4', letterSpacing: '0.08em' }}>
-                ultima analise: {ultimaAnalise.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                ultima análise: {ultimaAnálise.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
               </span>
             )}
           </div>
@@ -83,22 +83,22 @@ export default function DecisaoPage() {
               ? 'executando random forest...'
               : resultado
                 ? `${resultado.total_clientes_analisados} clientes analisados`
-                : 'nenhuma analise executada'
+                : 'nenhuma análise executada'
             }
           </span>
         </div>
       </div>
 
-      {/* cards de resumo - so aparece apos a analise */}
+      {/* cards de resumo - so aparece apos a análise */}
       {resultado && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1px', backgroundColor: '#D4D0C8', marginBottom: '40px' }}>
           {[
             { codigo: '01', label: 'clientes analisados', valor: resultado.total_clientes_analisados },
             { codigo: '02', label: 'alto risco churn', valor: altosRisco, destaque: altosRisco > 0 },
-            { codigo: '03', label: 'alta propensao', valor: altaPropensao },
+            { codigo: '03', label: 'alta propensão', valor: altaPropensão },
             {
               codigo: '04',
-              label: 'taxa media churn',
+              label: 'taxa média churn',
               valor: resultado.resultados.length > 0
                 ? `${(resultado.resultados.reduce((a, r) => a + r.risco_churn, 0) / resultado.resultados.length * 100).toFixed(1)}%`
                 : '0%',
@@ -124,7 +124,7 @@ export default function DecisaoPage() {
       {!resultado && !analisando && (
         <div style={{ padding: '32px 40px', border: '1.5px solid #D4D0C8', backgroundColor: '#FAFAF7', marginBottom: '32px' }}>
           <div style={{ fontFamily: 'var(--fonte-mono)', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6B6B65', marginBottom: '12px' }}>
-            requisito tecnico
+            requisito técnico
           </div>
           <p style={{ fontFamily: 'var(--fonte-sans)', fontSize: '13px', color: '#6B6B65', margin: '0 0 16px', lineHeight: 1.6 }}>
             Este modulo requer o servico Python rodando em paralelo.

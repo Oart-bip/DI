@@ -75,11 +75,11 @@ export default function FormPedido({
 
     if (!clienteId) novosErros.clienteId = 'selecione um cliente';
 
-    const itensValidos = itens.filter((i) => i.produtoId);
-    if (itensValidos.length === 0) {
+    const itensVálidos = itens.filter((i) => i.produtoId);
+    if (itensVálidos.length === 0) {
       novosErros.itens = 'adicione pelo menos 1 produto';
     } else {
-      for (const item of itensValidos) {
+      for (const item of itensVálidos) {
         const qtd = parseInt(item.quantidade);
         if (isNaN(qtd) || qtd < 1) {
           novosErros.itens = 'quantidade deve ser pelo menos 1';
@@ -94,7 +94,7 @@ export default function FormPedido({
     }
 
     if (categoria.trim().length > 100) {
-      novosErros.categoria = 'categoria deve ter no maximo 100 caracteres';
+      novosErros.categoria = 'categoria deve ter no máximo 100 caracteres';
     }
 
     setErros(novosErros);

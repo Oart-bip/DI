@@ -50,10 +50,10 @@ const tooltipStyle = {
 const axisStyle = { fontFamily: 'var(--fonte-mono)', fontSize: 10, fill: '#6B6B65' };
 
 export function GraficoReceitaMes({ dados }: { dados: { mes: string; receita: number; pedidos: number }[] }) {
-  if (!dados.length) return <><TituloGrafico codigo="01" titulo="receita por mes" /><SemDados /></>;
+  if (!dados.length) return <><TituloGrafico codigo="01" titulo="receita por mês" /><SemDados /></>;
   return (
     <div>
-      <TituloGrafico codigo="01" titulo="receita por mes" />
+      <TituloGrafico codigo="01" titulo="receita por mês" />
       <ResponsiveContainer width="100%" height={200}>
         <LineChart data={dados} margin={{ top: 4, right: 16, bottom: 4, left: 0 }}>
           <CartesianGrid stroke="#E8E5DE" strokeDasharray="3 3" vertical={false} />

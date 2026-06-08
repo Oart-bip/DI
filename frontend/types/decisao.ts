@@ -1,5 +1,5 @@
 export type ClassificacaoChurn = 'alto' | 'medio' | 'baixo';
-export type ClassificacaoPropensao = 'alta' | 'media' | 'baixa';
+export type ClassificacaoPropensão = 'alta' | 'media' | 'baixa';
 
 export interface FeatureCliente {
   total_pedidos: number;
@@ -15,14 +15,14 @@ export interface FeatureCliente {
 export interface ResultadoCliente {
   clienteId: string;
   nome: string;
-  score_propensao: number;
+  score_propensão: number;
   risco_churn: number;
   classificacao_churn: ClassificacaoChurn;
-  classificacao_propensao: ClassificacaoPropensao;
+  classificacao_propensão: ClassificacaoPropensão;
   features: FeatureCliente;
 }
 
-export interface RespostaAnalise {
+export interface RespostaAnálise {
   total_clientes_analisados: number;
   resultados: ResultadoCliente[];
 }

@@ -23,11 +23,11 @@ function Card({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function VisualizacaoPage() {
+export default function VisualizaçãoPage() {
   const [dados, setDados] = useState<DadosDashboard | null>(null);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
-  const [ultimaAtualizacao, setUltimaAtualizacao] = useState<Date | null>(null);
+  const [ultimaAtualização, setUltimaAtualização] = useState<Date | null>(null);
 
   const carregar = useCallback(async () => {
     try {
@@ -39,7 +39,7 @@ export default function VisualizacaoPage() {
         produtosService.listarTodos(),
       ]);
       setDados(calcularDashboard(pedidos, clientes, produtos));
-      setUltimaAtualizacao(new Date());
+      setUltimaAtualização(new Date());
     } catch (err) {
       setErro(err instanceof Error ? err.message : 'erro ao carregar dados');
     } finally {
@@ -56,11 +56,11 @@ export default function VisualizacaoPage() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <div style={{ fontFamily: 'var(--fonte-mono)', fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#C8401A', marginBottom: '12px' }}>
-              modulo 05 — analytics
+              módulo 05 — analytics
             </div>
             <div style={{ height: '3px', backgroundColor: '#1A1A18', marginBottom: '20px', width: '60px' }} />
             <h1 style={{ fontFamily: 'var(--fonte-serif)', fontSize: '42px', color: '#1A1A18', margin: 0, lineHeight: 1.05 }}>
-              Visualizacao
+              Visualização
             </h1>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px', marginTop: '8px' }}>
@@ -79,16 +79,16 @@ export default function VisualizacaoPage() {
             >
               {carregando ? 'atualizando...' : 'atualizar'}
             </button>
-            {ultimaAtualizacao && (
+            {ultimaAtualização && (
               <span style={{ fontFamily: 'var(--fonte-mono)', fontSize: '9px', color: '#BBBAB4', letterSpacing: '0.08em' }}>
-                atualizado as {ultimaAtualizacao.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                atualizado às {ultimaAtualização.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
               </span>
             )}
           </div>
         </div>
         <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid #D4D0C8' }}>
           <span style={{ fontFamily: 'var(--fonte-mono)', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#6B6B65' }}>
-            {carregando ? 'carregando...' : 'dados em tempo real — pedidos nao cancelados'}
+            {carregando ? 'carregando...' : 'dados em tempo real — pedidos não cancelados'}
           </span>
         </div>
       </div>
@@ -139,7 +139,7 @@ export default function VisualizacaoPage() {
             <Card><GraficoTopClientes dados={dados.topClientes} /></Card>
           </div>
 
-          {/* localizacao */}
+          {/* localização */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1px', backgroundColor: '#D4D0C8' }}>
             <Card><GraficoVendasLocalizacao dados={dados.vendasPorEstado} campo="estado" codigo="06" titulo="vendas por estado" /></Card>
             <Card><GraficoVendasLocalizacao dados={dados.vendasPorCidade} campo="cidade" codigo="07" titulo="vendas por cidade" /></Card>

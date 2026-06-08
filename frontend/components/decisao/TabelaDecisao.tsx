@@ -1,6 +1,6 @@
 'use client';
 
-import type { ResultadoCliente, ClassificacaoChurn, ClassificacaoPropensao } from '@/types/decisao';
+import type { ResultadoCliente, ClassificacaoChurn, ClassificacaoPropensão } from '@/types/decisao';
 
 interface TabelaDecisaoProps {
   resultados: ResultadoCliente[];
@@ -20,7 +20,7 @@ const CHURN_CONFIG: Record<ClassificacaoChurn, { cor: string; bg: string }> = {
   baixo: { cor: '#2D6A4F', bg: '#E8F4EE' },
 };
 
-const PROPENSAO_CONFIG: Record<ClassificacaoPropensao, { cor: string; bg: string }> = {
+const PROPENSAO_CONFIG: Record<ClassificacaoPropensão, { cor: string; bg: string }> = {
   alta:  { cor: '#2D6A4F', bg: '#E8F4EE' },
   media: { cor: '#8B6914', bg: '#FDF6E3' },
   baixa: { cor: '#6B6B65', bg: '#EDE9E2' },
@@ -58,7 +58,7 @@ export default function TabelaDecisao({ resultados }: TabelaDecisaoProps) {
       <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
         <thead>
           <tr style={{ borderBottom: '2px solid #1A1A18' }}>
-            {['#', 'cliente', 'risco churn', 'churn', 'propensao compra', 'propensao', 'pedidos', 'cancelados', 'receita', 'recencia'].map((col, i) => (
+            {['#', 'cliente', 'risco churn', 'churn', 'propensão compra', 'propensão', 'pedidos', 'cancelados', 'receita', 'recencia'].map((col, i) => (
               <th key={i} style={{
                 padding: '10px 14px', textAlign: 'left',
                 fontFamily: 'var(--fonte-mono)', fontSize: '9px', fontWeight: 700,
@@ -72,7 +72,7 @@ export default function TabelaDecisao({ resultados }: TabelaDecisaoProps) {
         <tbody>
           {resultados.map((r, index) => {
             const churnCfg = CHURN_CONFIG[r.classificacao_churn];
-            const propCfg = PROPENSAO_CONFIG[r.classificacao_propensao];
+            const propCfg = PROPENSAO_CONFIG[r.classificacao_propensão];
             return (
               <tr
                 key={r.clienteId}
@@ -111,19 +111,19 @@ export default function TabelaDecisao({ resultados }: TabelaDecisaoProps) {
                   </span>
                 </td>
 
-                {/* barra propensao */}
+                {/* barra propensão */}
                 <td style={{ padding: '14px 14px' }}>
-                  <BarraScore valor={r.score_propensao} cor={propCfg.cor} />
+                  <BarraScore valor={r.score_propensão} cor={propCfg.cor} />
                 </td>
 
-                {/* badge propensao */}
+                {/* badge propensão */}
                 <td style={{ padding: '14px 14px' }}>
                   <span style={{
                     fontFamily: 'var(--fonte-mono)', fontSize: '9px', fontWeight: 700,
                     letterSpacing: '0.08em', textTransform: 'uppercase',
                     color: propCfg.cor, backgroundColor: propCfg.bg, padding: '3px 8px',
                   }}>
-                    {r.classificacao_propensao}
+                    {r.classificacao_propensão}
                   </span>
                 </td>
 

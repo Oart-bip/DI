@@ -1,4 +1,4 @@
-import type { RespostaAnalise } from '@/types/decisao';
+import type { RespostaAnálise } from '@/types/decisao';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
@@ -12,17 +12,17 @@ async function handleResponse<T>(res: Response): Promise<T> {
 }
 
 export const decisaoService = {
-  async analisar(): Promise<RespostaAnalise> {
-    const res = await fetch(`${API_BASE}/decisao/analisar`, {
+  async analisar(): Promise<RespostaAnálise> {
+    const res = await fetch(`${API_BASE}/decisão/analisar`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       cache: 'no-store',
     });
-    return handleResponse<RespostaAnalise>(res);
+    return handleResponse<RespostaAnálise>(res);
   },
 
   async verificarSaude(): Promise<{ ml: string; mensagem: string }> {
-    const res = await fetch(`${API_BASE}/decisao/health`, { cache: 'no-store' });
+    const res = await fetch(`${API_BASE}/decisão/health`, { cache: 'no-store' });
     return handleResponse<{ ml: string; mensagem: string }>(res);
   },
 };
