@@ -49,7 +49,6 @@ const tooltipStyle = {
 
 const axisStyle = { fontFamily: 'var(--fonte-mono)', fontSize: 10, fill: '#6B6B65' };
 
-// ── Receita por mes ───────────────────────────────────────
 export function GraficoReceitaMes({ dados }: { dados: { mes: string; receita: number; pedidos: number }[] }) {
   if (!dados.length) return <><TituloGrafico codigo="01" titulo="receita por mes" /><SemDados /></>;
   return (
@@ -68,7 +67,6 @@ export function GraficoReceitaMes({ dados }: { dados: { mes: string; receita: nu
   );
 }
 
-// ── Status dos pedidos ────────────────────────────────────
 export function GraficoStatusPedidos({ dados }: { dados: { status: string; quantidade: number }[] }) {
   if (!dados.length) return <><TituloGrafico codigo="02" titulo="pedidos por status" /><SemDados /></>;
   return (
@@ -103,7 +101,6 @@ export function GraficoStatusPedidos({ dados }: { dados: { status: string; quant
   );
 }
 
-// ── Produtos mais vendidos ────────────────────────────────
 export function GraficoProdutosMaisVendidos({ dados }: { dados: { nome: string; quantidade: number }[] }) {
   if (!dados.length) return <><TituloGrafico codigo="03" titulo="produtos mais vendidos" /><SemDados /></>;
   return (
@@ -121,7 +118,6 @@ export function GraficoProdutosMaisVendidos({ dados }: { dados: { nome: string; 
   );
 }
 
-// ── Produto com maior valor ───────────────────────────────
 export function GraficoProdutoPorValor({ dados }: { dados: { nome: string; receita: number }[] }) {
   if (!dados.length) return <><TituloGrafico codigo="04" titulo="maior receita por produto" /><SemDados /></>;
   return (
@@ -139,7 +135,6 @@ export function GraficoProdutoPorValor({ dados }: { dados: { nome: string; recei
   );
 }
 
-// ── Top clientes ──────────────────────────────────────────
 export function GraficoTopClientes({ dados }: { dados: { nome: string; totalGasto: number; totalPedidos: number }[] }) {
   if (!dados.length) return <><TituloGrafico codigo="05" titulo="top clientes" /><SemDados /></>;
   return (
@@ -157,7 +152,6 @@ export function GraficoTopClientes({ dados }: { dados: { nome: string; totalGast
   );
 }
 
-// ── Vendas por localizacao ────────────────────────────────
 interface VendasLocProps {
   dados: { [key: string]: string | number }[];
   campo: string;

@@ -11,12 +11,13 @@ const common_1 = require("@nestjs/common");
 const clientes_module_1 = require("./clientes/clientes.module");
 const produtos_module_1 = require("./produtos/produtos.module");
 const pedidos_module_1 = require("./pedidos/pedidos.module");
+const decisao_module_1 = require("./decisao/decisao.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [clientes_module_1.ClientesModule, produtos_module_1.ProdutosModule, pedidos_module_1.PedidosModule],
+        imports: [clientes_module_1.ClientesModule, produtos_module_1.ProdutosModule, pedidos_module_1.PedidosModule, decisao_module_1.DecisaoModule],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

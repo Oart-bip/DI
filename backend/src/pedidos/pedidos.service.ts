@@ -36,7 +36,6 @@ export class PedidosService {
   create(dto: CreatePedidoDto): Pedido {
     const cliente = this.clientesService.findOne(dto.clienteId);
 
-    // nao permite o mesmo produto mais de uma vez — ajustar a quantidade
     const idsUnicos = new Set(dto.itens.map((i) => i.produtoId));
     if (idsUnicos.size !== dto.itens.length) {
       throw new BadRequestException(

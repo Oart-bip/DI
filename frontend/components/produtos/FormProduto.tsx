@@ -68,7 +68,6 @@ export default function FormProduto({
       nome: valores.nome.trim(),
       preco: parseFloat(valores.preco.replace(',', '.')),
       estoque: parseInt(valores.estoque, 10),
-      // envia categoria apenas se preenchida
       ...(valores.categoria.trim() && { categoria: valores.categoria.trim() }),
     };
 

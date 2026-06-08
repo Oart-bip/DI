@@ -26,14 +26,12 @@ export function calcularDashboard(
 
   const totalReceita = ativos.reduce((acc, p) => acc + p.total, 0);
 
-  // pedidos por status
   const statusMap = new Map<string, number>();
   for (const p of pedidos) {
     statusMap.set(p.status, (statusMap.get(p.status) ?? 0) + 1);
   }
   const pedidosPorStatus = Array.from(statusMap.entries()).map(([status, quantidade]) => ({ status, quantidade }));
 
-  // top clientes
   const clienteMap = new Map<string, { nome: string; totalGasto: number; totalPedidos: number }>();
   for (const p of ativos) {
     const atual = clienteMap.get(p.clienteId) ?? { nome: p.nomeCliente, totalGasto: 0, totalPedidos: 0 };
@@ -41,7 +39,6 @@ export function calcularDashboard(
   }
   const topClientes = Array.from(clienteMap.values()).sort((a, b) => b.totalGasto - a.totalGasto).slice(0, 8);
 
-  // produtos mais vendidos e por valor
   const produtoMap = new Map<string, { nome: string; quantidade: number; receita: number }>();
   for (const p of ativos) {
     for (const item of p.itens) {
@@ -56,7 +53,6 @@ export function calcularDashboard(
   const produtosMaisVendidos = Array.from(produtoMap.values()).sort((a, b) => b.quantidade - a.quantidade).slice(0, 8);
   const produtoPorValor = Array.from(produtoMap.values()).sort((a, b) => b.receita - a.receita).slice(0, 8);
 
-  // vendas por localizacao
   const clienteById = new Map(clientes.map((c) => [c.id, c]));
   const estadoMap = new Map<string, number>();
   const paisMap = new Map<string, number>();
@@ -74,7 +70,6 @@ export function calcularDashboard(
   const vendasPorPais = Array.from(paisMap.entries()).map(([pais, total]) => ({ pais, total })).sort((a, b) => b.total - a.total).slice(0, 8);
   const vendasPorCidade = Array.from(cidadeMap.entries()).map(([cidade, total]) => ({ cidade, total })).sort((a, b) => b.total - a.total).slice(0, 8);
 
-  // receita por mes
   const mesMap = new Map<string, { receita: number; pedidos: number }>();
   for (const p of ativos) {
     const data = new Date(p.criadoEm);

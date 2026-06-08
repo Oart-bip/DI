@@ -9,6 +9,7 @@ const itensMenu = [
   { href: '/produtos', label: 'Produtos', codigo: '03' },
   { href: '/pedidos', label: 'Pedidos', codigo: '04' },
   { href: '/visualizacao', label: 'Visualizacao', codigo: '05' },
+  { href: '/decisao', label: 'Decisao', codigo: '06' },
 ];
 
 export default function Sidebar() {

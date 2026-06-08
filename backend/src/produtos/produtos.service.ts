@@ -31,7 +31,6 @@ export class ProdutosService {
       nome: dto.nome.trim(),
       preco: Number(dto.preco),
       estoque: Number(dto.estoque),
-      // categoria e null se nao fornecida ou string vazia
       categoria: dto.categoria?.trim() || null,
       criadoEm: new Date(),
       atualizadoEm: new Date(),
@@ -49,7 +48,6 @@ export class ProdutosService {
       ...(dto.nome !== undefined && { nome: dto.nome.trim() }),
       ...(dto.preco !== undefined && { preco: Number(dto.preco) }),
       ...(dto.estoque !== undefined && { estoque: Number(dto.estoque) }),
-      // permite remover a categoria enviando string vazia
       ...(dto.categoria !== undefined && {
         categoria: dto.categoria.trim() || null,
       }),

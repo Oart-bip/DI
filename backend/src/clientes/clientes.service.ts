@@ -10,7 +10,6 @@ import { UpdateClienteDto } from './dto/update-cliente.dto';
 
 @Injectable()
 export class ClientesService {
-  // armazenamento em memoria — sera substituido por banco de dados futuramente
   private readonly clientes: Map<string, Cliente> = new Map();
 
   findAll(): Cliente[] {

@@ -7,7 +7,6 @@ import type {
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
-// Utilitário para tratamento de erros da API
 async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
     const erro: ApiError = await res.json().catch(() => ({
@@ -22,7 +21,6 @@ async function handleResponse<T>(res: Response): Promise<T> {
     throw new Error(mensagem);
   }
 
-  // 204 No Content não tem corpo
   if (res.status === 204) return undefined as T;
 
   return res.json() as Promise<T>;

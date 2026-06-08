@@ -13,7 +13,6 @@ interface FormClienteProps {
   modoEdicao?: boolean;
 }
 
-
 export default function FormCliente({
   clienteInicial,
   onSubmit,
@@ -37,7 +36,6 @@ export default function FormCliente({
     const novosValores = { ...valores, [name]: value };
     setValores(novosValores);
 
-    // Revalida o campo que mudou se já foi tocado
     if (tocado[name]) {
       const novosErros = validarFormCliente(novosValores);
       setErros((prev) => ({
@@ -60,7 +58,6 @@ export default function FormCliente({
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    // Valida tudo antes de submeter
     const novosErros = validarFormCliente(valores);
     if (temErros(novosErros)) {
       setErros(novosErros);

@@ -51,7 +51,6 @@ export default function ClientesPage() {
     setToast({ mensagem, tipo });
   }
 
-  // --- Criar ---
   async function handleCriar(dados: object) {
     try {
       setSalvando(true);
@@ -66,7 +65,6 @@ export default function ClientesPage() {
     }
   }
 
-  // --- Editar ---
   function abrirEdicao(cliente: Cliente) {
     setClienteSelecionado(cliente);
     setEstadoModal('editando');
@@ -93,7 +91,6 @@ export default function ClientesPage() {
     }
   }
 
-  // --- Excluir ---
   function confirmarExclusao(cliente: Cliente) {
     setClienteParaExcluir(cliente);
   }

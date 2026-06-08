@@ -3,7 +3,7 @@ export class Produto {
   nome: string;
   preco: number;
   estoque: number;
-  categoria: string | null; // categoria é opcional
+  categoria: string | null;
   criadoEm: Date;
   atualizadoEm: Date;
 }

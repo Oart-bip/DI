@@ -18,7 +18,7 @@ export class CreateProdutoDto {
   nome: string;
 
   @IsNotEmpty({ message: 'Preço é obrigatório' })
-  @Type(() => Number) // transforma string para número automaticamente
+  @Type(() => Number)
   @IsNumber({ maxDecimalPlaces: 2 }, { message: 'Preço deve ser um número com no máximo 2 casas decimais' })
   @Min(0.01, { message: 'Preço deve ser maior que zero' })
   preco: number;
@@ -29,7 +29,7 @@ export class CreateProdutoDto {
   @Min(0, { message: 'Estoque não pode ser negativo' })
   estoque: number;
 
-  @IsOptional() // categoria é opcional
+  @IsOptional()
   @IsString({ message: 'Categoria deve ser uma string' })
   @MaxLength(100, { message: 'Categoria deve ter no máximo 100 caracteres' })
   categoria?: string;

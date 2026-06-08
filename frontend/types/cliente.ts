@@ -1,4 +1,3 @@
-// Tipagem central do domínio Cliente
 export interface Cliente {
   id: string;
   nome: string;
@@ -20,7 +19,6 @@ export interface CreateClientePayload {
 
 export interface UpdateClientePayload extends Partial<CreateClientePayload> {}
 
-// Erros de validação retornados pela API (NestJS ValidationPipe)
 export interface ApiValidationError {
   statusCode: number;
   message: string | string[];

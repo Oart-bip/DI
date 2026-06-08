@@ -10,7 +10,6 @@ interface ModalProps {
 }
 
 export default function Modal({ titulo, subtitulo, children, onFechar }: ModalProps) {
-  // Fecha com ESC
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onFechar();
@@ -19,7 +18,6 @@ export default function Modal({ titulo, subtitulo, children, onFechar }: ModalPr
     return () => window.removeEventListener('keydown', handleEsc);
   }, [onFechar]);
 
-  // Bloqueia scroll do body
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };

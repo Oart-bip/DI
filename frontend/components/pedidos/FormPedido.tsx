@@ -52,7 +52,6 @@ export default function FormPedido({
     setItens((prev) => prev.map((item, i) => (i === index ? { ...item, [campo]: valor } : item)));
   }
 
-  // filtra produtos ja selecionados em outros itens
   function produtosDisponiveis(indexAtual: number) {
     const selecionados = itens
       .map((item, i) => (i !== indexAtual ? item.produtoId : null))

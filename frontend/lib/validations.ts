@@ -60,8 +60,6 @@ export function temErros(erros: FormErrors): boolean {
   return Object.keys(erros).length > 0;
 }
 
-// ── Produtos ──────────────────────────────────────────────
-
 export interface ProdutoFormErrors {
   nome?: string;
   preco?: string;
@@ -71,7 +69,7 @@ export interface ProdutoFormErrors {
 
 interface ProdutoFormValues {
   nome: string;
-  preco: string;   // string pois vem de input de texto
+  preco: string;
   estoque: string;
   categoria: string;
 }
@@ -109,7 +107,6 @@ export function validarFormProduto(values: ProdutoFormValues): ProdutoFormErrors
     }
   }
 
-  // categoria é opcional — só valida se preenchida
   if (values.categoria.trim().length > 100) {
     erros.categoria = 'Categoria deve ter no máximo 100 caracteres';
   }

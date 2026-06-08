@@ -21,6 +21,7 @@ export default function Dashboard() {
           { codigo: '03', titulo: 'Produtos', desc: 'cadastro e controle de estoque', href: '/produtos', status: 'ativo' },
           { codigo: '04', titulo: 'Pedidos', desc: 'criacao e gestao de pedidos', href: '/pedidos', status: 'ativo' },
           { codigo: '05', titulo: 'Visualizacao', desc: 'graficos e analytics de vendas', href: '/visualizacao', status: 'ativo' },
+          { codigo: '06', titulo: 'Decisao', desc: 'random forest — churn e propensao', href: '/decisao', status: 'ativo' },
         ].map((mod) => (
           <div key={mod.codigo} style={{ backgroundColor: '#FAFAF7', padding: '28px 32px', opacity: mod.status === 'em breve' ? 0.6 : 1 }}>
             <div style={{ fontFamily: 'var(--fonte-mono)', fontSize: '10px', letterSpacing: '0.1em', color: mod.status === 'ativo' ? '#C8401A' : '#BBBAB4', marginBottom: '12px' }}>
