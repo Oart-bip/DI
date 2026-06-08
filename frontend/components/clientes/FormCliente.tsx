@@ -13,13 +13,6 @@ interface FormClienteProps {
   modoEdicao?: boolean;
 }
 
-const estadoVazio = {
-  nome: '',
-  email: '',
-  cidade: '',
-  estado: '',
-  pais: '',
-};
 
 export default function FormCliente({
   clienteInicial,
