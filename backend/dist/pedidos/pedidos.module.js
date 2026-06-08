@@ -6,17 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.PedidosModule = void 0;
 const common_1 = require("@nestjs/common");
-const clientes_module_1 = require("./clientes/clientes.module");
-const produtos_module_1 = require("./produtos/produtos.module");
-const pedidos_module_1 = require("./pedidos/pedidos.module");
-let AppModule = class AppModule {
+const pedidos_controller_1 = require("./pedidos.controller");
+const pedidos_service_1 = require("./pedidos.service");
+const clientes_module_1 = require("../clientes/clientes.module");
+const produtos_module_1 = require("../produtos/produtos.module");
+let PedidosModule = class PedidosModule {
 };
-exports.AppModule = AppModule;
-exports.AppModule = AppModule = __decorate([
+exports.PedidosModule = PedidosModule;
+exports.PedidosModule = PedidosModule = __decorate([
     (0, common_1.Module)({
-        imports: [clientes_module_1.ClientesModule, produtos_module_1.ProdutosModule, pedidos_module_1.PedidosModule],
+        imports: [clientes_module_1.ClientesModule, produtos_module_1.ProdutosModule],
+        controllers: [pedidos_controller_1.PedidosController],
+        providers: [pedidos_service_1.PedidosService],
     })
-], AppModule);
-//# sourceMappingURL=app.module.js.map
+], PedidosModule);
+//# sourceMappingURL=pedidos.module.js.map

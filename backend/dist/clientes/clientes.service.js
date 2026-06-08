@@ -17,7 +17,7 @@ let ClientesService = class ClientesService {
     findOne(id) {
         const cliente = this.clientes.get(id);
         if (!cliente) {
-            throw new common_1.NotFoundException(`Cliente com ID "${id}" não encontrado`);
+            throw new common_1.NotFoundException(`cliente com id "${id}" nao encontrado`);
         }
         return cliente;
     }
@@ -61,7 +61,7 @@ let ClientesService = class ClientesService {
         const emailNormalizado = email.toLowerCase().trim();
         const existe = Array.from(this.clientes.values()).some((c) => c.email === emailNormalizado && c.id !== ignorarId);
         if (existe) {
-            throw new common_1.ConflictException(`Já existe um cliente cadastrado com o e-mail "${email}"`);
+            throw new common_1.ConflictException(`ja existe um cliente com o e-mail "${email}"`);
         }
     }
 };

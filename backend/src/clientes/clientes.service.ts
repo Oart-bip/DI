@@ -10,7 +10,7 @@ import { UpdateClienteDto } from './dto/update-cliente.dto';
 
 @Injectable()
 export class ClientesService {
-  // Armazenamento em memória — será substituído por banco de dados futuramente
+  // armazenamento em memoria — sera substituido por banco de dados futuramente
   private readonly clientes: Map<string, Cliente> = new Map();
 
   findAll(): Cliente[] {
@@ -22,7 +22,7 @@ export class ClientesService {
   findOne(id: string): Cliente {
     const cliente = this.clientes.get(id);
     if (!cliente) {
-      throw new NotFoundException(`Cliente com ID "${id}" não encontrado`);
+      throw new NotFoundException(`cliente com id "${id}" nao encontrado`);
     }
     return cliente;
   }
@@ -67,7 +67,7 @@ export class ClientesService {
   }
 
   remove(id: string): void {
-    this.findOne(id); // lança 404 se não existir
+    this.findOne(id); 
     this.clientes.delete(id);
   }
 
@@ -79,7 +79,7 @@ export class ClientesService {
 
     if (existe) {
       throw new ConflictException(
-        `Já existe um cliente cadastrado com o e-mail "${email}"`,
+        `ja existe um cliente com o e-mail "${email}"`,
       );
     }
   }

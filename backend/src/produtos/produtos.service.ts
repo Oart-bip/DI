@@ -20,7 +20,7 @@ export class ProdutosService {
   findOne(id: string): Produto {
     const produto = this.produtos.get(id);
     if (!produto) {
-      throw new NotFoundException(`Produto com ID "${id}" não encontrado`);
+      throw new NotFoundException(`produto com id "${id}" nao encontrado`);
     }
     return produto;
   }
@@ -31,7 +31,7 @@ export class ProdutosService {
       nome: dto.nome.trim(),
       preco: Number(dto.preco),
       estoque: Number(dto.estoque),
-      // categoria é null se não fornecida ou string vazia
+      // categoria e null se nao fornecida ou string vazia
       categoria: dto.categoria?.trim() || null,
       criadoEm: new Date(),
       atualizadoEm: new Date(),

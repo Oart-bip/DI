@@ -17,7 +17,7 @@ let ProdutosService = class ProdutosService {
     findOne(id) {
         const produto = this.produtos.get(id);
         if (!produto) {
-            throw new common_1.NotFoundException(`Produto com ID "${id}" não encontrado`);
+            throw new common_1.NotFoundException(`produto com id "${id}" nao encontrado`);
         }
         return produto;
     }
