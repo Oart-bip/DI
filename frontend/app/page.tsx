@@ -42,7 +42,7 @@ export default function Dashboard() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', backgroundColor: '#D4D0C8', maxWidth: '640px' }}>
         {[
           { codigo: '02', titulo: 'Clientes', desc: 'Cadastro e gestão de clientes', href: '/clientes', status: 'ativo' },
-          { codigo: '03', titulo: 'Produtos', desc: 'Em desenvolvimento', href: '#', status: 'em breve' },
+          { codigo: '03', titulo: 'Produtos', desc: 'Cadastro e controle de estoque', href: '/produtos', status: 'ativo' },
           { codigo: '04', titulo: 'Vendas', desc: 'Em desenvolvimento', href: '#', status: 'em breve' },
           { codigo: '05', titulo: 'Relatórios', desc: 'Em desenvolvimento', href: '#', status: 'em breve' },
         ].map((mod) => (

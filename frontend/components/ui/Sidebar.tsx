@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 const itensMenu = [
   { href: '/', label: 'Dashboard', codigo: '01' },
   { href: '/clientes', label: 'Clientes', codigo: '02' },
+  { href: '/produtos', label: 'Produtos', codigo: '03' },
 ];
 
 export default function Sidebar() {
