@@ -19,6 +19,10 @@ Acesse: http://localhost:3000
 
 ---
 
-- cadastro de clientes feito 
+- cadastro de clientes feito
+- cadastro de produtos feito
+- criacao de pedidos feito
+- modulo de visualizacao de dados feito
+- 
 
 cada alteracao feita favor mencionar na descricao e dar commit
