@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import type { Cliente } from '@/types/cliente';
+import type { Cliente, CreateClientePayload, UpdateClientePayload } from '@/types/cliente';
 import { clientesService } from '@/services/clientesService';
 import TabelaClientes from '@/components/clientes/TabelaClientes';
 import FormCliente from '@/components/clientes/FormCliente';
@@ -51,10 +51,10 @@ export default function ClientesPage() {
     setToast({ mensagem, tipo });
   }
 
-  async function handleCriar(dados: object) {
+  async function handleCriar(dados: CreateClientePayload | UpdateClientePayload) {
     try {
       setSalvando(true);
-      const criado = await clientesService.criar(dados as Parameters<typeof clientesService.criar>[0]);
+      const criado = await clientesService.criar(dados as CreateClientePayload);
       setClientes((prev) => [criado, ...prev]);
       setEstadoModal('fechado');
       mostrarToast(`Cliente "${criado.nome}" cadastrado com sucesso!`, 'sucesso');
@@ -70,14 +70,11 @@ export default function ClientesPage() {
     setEstadoModal('editando');
   }
 
-  async function handleAtualizar(dados: object) {
+  async function handleAtualizar(dados: CreateClientePayload | UpdateClientePayload) {
     if (!clienteSelecionado) return;
     try {
       setSalvando(true);
-      const atualizado = await clientesService.atualizar(
-        clienteSelecionado.id,
-        dados as Parameters<typeof clientesService.atualizar>[1]
-      );
+      const atualizado = await clientesService.atualizar(clienteSelecionado.id, dados as UpdateClientePayload);
       setClientes((prev) =>
         prev.map((c) => (c.id === atualizado.id ? atualizado : c))
       );
@@ -259,7 +256,7 @@ export default function ClientesPage() {
       {estadoModal === 'criando' && (
         <Modal
           titulo="Novo cliente"
-          subtítulo="Cadastro"
+          subtitulo="Cadastro"
           onFechar={fecharModal}
         >
           <FormCliente
@@ -274,7 +271,7 @@ export default function ClientesPage() {
       {estadoModal === 'editando' && clienteSelecionado && (
         <Modal
           titulo="Editar cliente"
-          subtítulo="Atualização"
+          subtitulo="Atualização"
           onFechar={fecharModal}
         >
           <FormCliente

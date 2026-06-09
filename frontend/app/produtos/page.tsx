@@ -230,13 +230,13 @@ export default function ProdutosPage() {
       )}
 
       {estadoModal === 'criando' && (
-        <Modal titulo="Novo produto" subtítulo="Cadastro" onFechar={fecharModal}>
+        <Modal titulo="Novo produto" subtitulo="Cadastro" onFechar={fecharModal}>
           <FormProduto onSubmit={handleCriar} onCancelar={fecharModal} carregando={salvando} />
         </Modal>
       )}
 
       {estadoModal === 'editando' && produtoSelecionado && (
-        <Modal titulo="Editar produto" subtítulo="Atualização" onFechar={fecharModal}>
+        <Modal titulo="Editar produto" subtitulo="Atualização" onFechar={fecharModal}>
           <FormProduto
             produtoInicial={produtoSelecionado}
             onSubmit={handleAtualizar}

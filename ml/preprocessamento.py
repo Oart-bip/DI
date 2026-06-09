@@ -43,21 +43,6 @@ def normalizar_zscore(df: pd.DataFrame, colunas: list[str]) -> Tuple[pd.DataFram
         params[col] = {"media": media, "std": std}
     return df, params
 
-def normalizar_minmax(df: pd.DataFrame, colunas: list[str]) -> Tuple[pd.DataFrame, dict]:
-    df = df.copy()
-    params = {}
-    for col in colunas:
-        if col not in df.columns:
-            continue
-        vmin = df[col].min()
-        vmax = df[col].max()
-        if vmax == vmin:
-            df[col] = 0.0
-        else:
-            df[col] = (df[col] - vmin) / (vmax - vmin)
-        params[col] = {"min": vmin, "max": vmax}
-    return df, params
-
 def preparar_features(pedidos_raw: list[dict], clientes_raw: list[dict]) -> pd.DataFrame:
     if not pedidos_raw or not clientes_raw:
         return pd.DataFrame()

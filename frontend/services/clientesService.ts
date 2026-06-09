@@ -1,30 +1,9 @@
-import type {
-  Cliente,
-  CreateClientePayload,
-  UpdateClientePayload,
-  ApiError,
-} from '@/types/cliente';
+import { handleResponse } from '@/lib/httpClient';
+import type { Cliente, CreateClientePayload, UpdateClientePayload } from '@/types/cliente';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
-async function handleResponse<T>(res: Response): Promise<T> {
-  if (!res.ok) {
-    const erro: ApiError = await res.json().catch(() => ({
-      statusCode: res.status,
-      message: 'Erro desconhecido',
-    }));
 
-    const mensagem = Array.isArray(erro.message)
-      ? erro.message.join(', ')
-      : erro.message;
-
-    throw new Error(mensagem);
-  }
-
-  if (res.status === 204) return undefined as T;
-
-  return res.json() as Promise<T>;
-}
 
 export const clientesService = {
   async listarTodos(): Promise<Cliente[]> {
@@ -34,12 +13,6 @@ export const clientesService = {
     return handleResponse<Cliente[]>(res);
   },
 
-  async buscarPorId(id: string): Promise<Cliente> {
-    const res = await fetch(`${API_BASE}/clientes/${id}`, {
-      cache: 'no-store',
-    });
-    return handleResponse<Cliente>(res);
-  },
 
   async criar(payload: CreateClientePayload): Promise<Cliente> {
     const res = await fetch(`${API_BASE}/clientes`, {

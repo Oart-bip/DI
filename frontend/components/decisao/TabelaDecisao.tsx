@@ -1,6 +1,6 @@
 'use client';
 
-import type { ResultadoCliente, ClassificacaoChurn, ClassificacaoPropensão } from '@/types/decisao';
+import type { ResultadoCliente, ClassificacaoChurn, ClassificacaoPropensao } from '@/types/decisao';
 
 interface TabelaDecisaoProps {
   resultados: ResultadoCliente[];
@@ -20,7 +20,7 @@ const CHURN_CONFIG: Record<ClassificacaoChurn, { cor: string; bg: string }> = {
   baixo: { cor: '#2D6A4F', bg: '#E8F4EE' },
 };
 
-const PROPENSAO_CONFIG: Record<ClassificacaoPropensão, { cor: string; bg: string }> = {
+const PROPENSAO_CONFIG: Record<ClassificacaoPropensao, { cor: string; bg: string }> = {
   alta:  { cor: '#2D6A4F', bg: '#E8F4EE' },
   media: { cor: '#8B6914', bg: '#FDF6E3' },
   baixa: { cor: '#6B6B65', bg: '#EDE9E2' },
@@ -72,7 +72,7 @@ export default function TabelaDecisao({ resultados }: TabelaDecisaoProps) {
         <tbody>
           {resultados.map((r, index) => {
             const churnCfg = CHURN_CONFIG[r.classificacao_churn];
-            const propCfg = PROPENSAO_CONFIG[r.classificacao_propensão];
+            const propCfg = PROPENSAO_CONFIG[r.classificacao_propensao];
             return (
               <tr
                 key={r.clienteId}
@@ -113,7 +113,7 @@ export default function TabelaDecisao({ resultados }: TabelaDecisaoProps) {
 
                 {/* barra propensão */}
                 <td style={{ padding: '14px 14px' }}>
-                  <BarraScore valor={r.score_propensão} cor={propCfg.cor} />
+                  <BarraScore valor={r.score_propensao} cor={propCfg.cor} />
                 </td>
 
                 {/* badge propensão */}
@@ -123,7 +123,7 @@ export default function TabelaDecisao({ resultados }: TabelaDecisaoProps) {
                     letterSpacing: '0.08em', textTransform: 'uppercase',
                     color: propCfg.cor, backgroundColor: propCfg.bg, padding: '3px 8px',
                   }}>
-                    {r.classificacao_propensão}
+                    {r.classificacao_propensao}
                   </span>
                 </td>
 

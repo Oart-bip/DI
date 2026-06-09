@@ -150,7 +150,7 @@ export default function PedidosPage() {
       )}
 
       {modalAberto && (
-        <Modal titulo="Novo pedido" subtítulo="Criação" onFechar={() => { if (!salvando) setModalAberto(false); }}>
+        <Modal titulo="Novo pedido" subtitulo="Criação" onFechar={() => { if (!salvando) setModalAberto(false); }}>
           <FormPedido
             clientes={clientes}
             produtos={produtos}

@@ -1,85 +1,63 @@
-import {
-  Injectable,
-  NotFoundException,
-  ConflictException,
-} from '@nestjs/common';
-import { randomUUID } from 'crypto';
-import { Cliente } from './entities/cliente.entity';
+import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateClienteDto } from './dto/create-cliente.dto';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
 
 @Injectable()
 export class ClientesService {
-  private readonly clientes: Map<string, Cliente> = new Map();
+  constructor(private readonly prisma: PrismaService) {}
 
-  findAll(): Cliente[] {
-    return Array.from(this.clientes.values()).sort(
-      (a, b) => b.criadoEm.getTime() - a.criadoEm.getTime(),
-    );
+  findAll() {
+    return this.prisma.cliente.findMany({ orderBy: { criadoEm: 'desc' } });
   }
 
-  findOne(id: string): Cliente {
-    const cliente = this.clientes.get(id);
-    if (!cliente) {
-      throw new NotFoundException(`cliente com id "${id}" nao encontrado`);
-    }
+  async findOne(id: string) {
+    const cliente = await this.prisma.cliente.findUnique({ where: { id } });
+    if (!cliente) throw new NotFoundException(`cliente com id "${id}" nao encontrado`);
     return cliente;
   }
 
-  create(dto: CreateClienteDto): Cliente {
-    this.verificarEmailDuplicado(dto.email);
+  async create(dto: CreateClienteDto) {
+    const existe = await this.prisma.cliente.findUnique({
+      where: { email: dto.email.toLowerCase().trim() },
+    });
+    if (existe) throw new ConflictException(`ja existe um cliente com o e-mail "${dto.email}"`);
 
-    const novoCliente: Cliente = {
-      id: randomUUID(),
-      nome: dto.nome.trim(),
-      email: dto.email.toLowerCase().trim(),
-      cidade: dto.cidade.trim(),
-      estado: dto.estado.trim(),
-      pais: dto.pais.trim(),
-      criadoEm: new Date(),
-      atualizadoEm: new Date(),
-    };
-
-    this.clientes.set(novoCliente.id, novoCliente);
-    return novoCliente;
+    return this.prisma.cliente.create({
+      data: {
+        nome: dto.nome.trim(),
+        email: dto.email.toLowerCase().trim(),
+        cidade: dto.cidade.trim(),
+        estado: dto.estado.trim(),
+        pais: dto.pais.trim(),
+      },
+    });
   }
 
-  update(id: string, dto: UpdateClienteDto): Cliente {
-    const clienteExistente = this.findOne(id);
+  async update(id: string, dto: UpdateClienteDto) {
+    await this.findOne(id);
 
-    if (dto.email && dto.email !== clienteExistente.email) {
-      this.verificarEmailDuplicado(dto.email, id);
+    if (dto.email) {
+      const existe = await this.prisma.cliente.findFirst({
+        where: { email: dto.email.toLowerCase().trim(), NOT: { id } },
+      });
+      if (existe) throw new ConflictException(`ja existe um cliente com o e-mail "${dto.email}"`);
     }
 
-    const clienteAtualizado: Cliente = {
-      ...clienteExistente,
-      ...(dto.nome !== undefined && { nome: dto.nome.trim() }),
-      ...(dto.email !== undefined && { email: dto.email.toLowerCase().trim() }),
-      ...(dto.cidade !== undefined && { cidade: dto.cidade.trim() }),
-      ...(dto.estado !== undefined && { estado: dto.estado.trim() }),
-      ...(dto.pais !== undefined && { pais: dto.pais.trim() }),
-      atualizadoEm: new Date(),
-    };
-
-    this.clientes.set(id, clienteAtualizado);
-    return clienteAtualizado;
+    return this.prisma.cliente.update({
+      where: { id },
+      data: {
+        ...(dto.nome && { nome: dto.nome.trim() }),
+        ...(dto.email && { email: dto.email.toLowerCase().trim() }),
+        ...(dto.cidade && { cidade: dto.cidade.trim() }),
+        ...(dto.estado && { estado: dto.estado.trim() }),
+        ...(dto.pais && { pais: dto.pais.trim() }),
+      },
+    });
   }
 
-  remove(id: string): void {
-    this.findOne(id); 
-    this.clientes.delete(id);
-  }
-
-  private verificarEmailDuplicado(email: string, ignorarId?: string): void {
-    const emailNormalizado = email.toLowerCase().trim();
-    const existe = Array.from(this.clientes.values()).some(
-      (c) => c.email === emailNormalizado && c.id !== ignorarId,
-    );
-
-    if (existe) {
-      throw new ConflictException(
-        `ja existe um cliente com o e-mail "${email}"`,
-      );
-    }
+  async remove(id: string) {
+    await this.findOne(id);
+    await this.prisma.cliente.delete({ where: { id } });
   }
 }

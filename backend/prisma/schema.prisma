@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  id           String    @id @default(uuid())
+  nome         String
+  email        String    @unique
+  cidade       String
+  estado       String
+  pais         String
+  criadoEm     DateTime  @default(now()) @map("criado_em")
+  atualizadoEm DateTime  @updatedAt @map("atualizado_em")
+  pedidos      Pedido[]
+
+  @@map("clientes")
+}
+
+model Produto {
+  id           String       @id @default(uuid())
+  nome         String
+  preco        Float
+  estoque      Int
+  categoria    String?
+  criadoEm     DateTime     @default(now()) @map("criado_em")
+  atualizadoEm DateTime     @updatedAt @map("atualizado_em")
+  itens        ItemPedido[]
+
+  @@map("produtos")
+}
+
+model Pedido {
+  id           String       @id @default(uuid())
+  clienteId    String       @map("cliente_id")
+  nomeCliente  String       @map("nome_cliente")
+  categoria    String?
+  total        Float
+  status       String       @default("pendente")
+  criadoEm     DateTime     @default(now()) @map("criado_em")
+  atualizadoEm DateTime     @updatedAt @map("atualizado_em")
+  cliente      Cliente      @relation(fields: [clienteId], references: [id])
+  itens        ItemPedido[]
+
+  @@map("pedidos")
+}
+
+model ItemPedido {
+  id           String  @id @default(uuid())
+  pedidoId     String  @map("pedido_id")
+  produtoId    String  @map("produto_id")
+  nomeProduto  String  @map("nome_produto")
+  precoProduto Float   @map("preco_produto")
+  quantidade   Int
+  subtotal     Float
+  pedido       Pedido  @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
+  produto      Produto @relation(fields: [produtoId], references: [id])
+
+  @@map("itens_pedido")
+}

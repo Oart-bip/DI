@@ -1,65 +1,48 @@
-import {
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
-import { randomUUID } from 'crypto';
-import { Produto } from './entities/produto.entity';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
 
 @Injectable()
 export class ProdutosService {
-  private readonly produtos: Map<string, Produto> = new Map();
+  constructor(private readonly prisma: PrismaService) {}
 
-  findAll(): Produto[] {
-    return Array.from(this.produtos.values()).sort(
-      (a, b) => b.criadoEm.getTime() - a.criadoEm.getTime(),
-    );
+  findAll() {
+    return this.prisma.produto.findMany({ orderBy: { criadoEm: 'desc' } });
   }
 
-  findOne(id: string): Produto {
-    const produto = this.produtos.get(id);
-    if (!produto) {
-      throw new NotFoundException(`produto com id "${id}" nao encontrado`);
-    }
+  async findOne(id: string) {
+    const produto = await this.prisma.produto.findUnique({ where: { id } });
+    if (!produto) throw new NotFoundException(`produto com id "${id}" nao encontrado`);
     return produto;
   }
 
-  create(dto: CreateProdutoDto): Produto {
-    const novoProduto: Produto = {
-      id: randomUUID(),
-      nome: dto.nome.trim(),
-      preco: Number(dto.preco),
-      estoque: Number(dto.estoque),
-      categoria: dto.categoria?.trim() || null,
-      criadoEm: new Date(),
-      atualizadoEm: new Date(),
-    };
-
-    this.produtos.set(novoProduto.id, novoProduto);
-    return novoProduto;
+  create(dto: CreateProdutoDto) {
+    return this.prisma.produto.create({
+      data: {
+        nome: dto.nome.trim(),
+        preco: Number(dto.preco),
+        estoque: Number(dto.estoque),
+        categoria: dto.categoria?.trim() || null,
+      },
+    });
   }
 
-  update(id: string, dto: UpdateProdutoDto): Produto {
-    const produtoExistente = this.findOne(id);
-
-    const produtoAtualizado: Produto = {
-      ...produtoExistente,
-      ...(dto.nome !== undefined && { nome: dto.nome.trim() }),
-      ...(dto.preco !== undefined && { preco: Number(dto.preco) }),
-      ...(dto.estoque !== undefined && { estoque: Number(dto.estoque) }),
-      ...(dto.categoria !== undefined && {
-        categoria: dto.categoria.trim() || null,
-      }),
-      atualizadoEm: new Date(),
-    };
-
-    this.produtos.set(id, produtoAtualizado);
-    return produtoAtualizado;
+  async update(id: string, dto: UpdateProdutoDto) {
+    await this.findOne(id);
+    return this.prisma.produto.update({
+      where: { id },
+      data: {
+        ...(dto.nome !== undefined && { nome: dto.nome.trim() }),
+        ...(dto.preco !== undefined && { preco: Number(dto.preco) }),
+        ...(dto.estoque !== undefined && { estoque: Number(dto.estoque) }),
+        ...(dto.categoria !== undefined && { categoria: dto.categoria.trim() || null }),
+      },
+    });
   }
 
-  remove(id: string): void {
-    this.findOne(id);
-    this.produtos.delete(id);
+  async remove(id: string) {
+    await this.findOne(id);
+    await this.prisma.produto.delete({ where: { id } });
   }
 }

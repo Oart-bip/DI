@@ -1,25 +1,25 @@
 'use client';
 
 import { useState } from 'react';
-import type { RespostaAnálise } from '@/types/decisao';
+import type { RespostaAnalise } from '@/types/decisao';
 import { decisaoService } from '@/services/decisaoService';
 import TabelaDecisao from '@/components/decisao/TabelaDecisao';
 import Toast from '@/components/ui/Toast';
 
 interface ToastState { mensagem: string; tipo: 'sucesso' | 'erro'; }
 
-export default function DecisãoPage() {
-  const [resultado, setResultado] = useState<RespostaAnálise | null>(null);
+export default function DecisaoPage() {
+  const [resultado, setResultado] = useState<RespostaAnalise | null>(null);
   const [analisando, setAnalisando] = useState(false);
   const [toast, setToast] = useState<ToastState | null>(null);
-  const [ultimaAnálise, setUltimaAnálise] = useState<Date | null>(null);
+  const [ultimaAnalise, setUltimaAnalise] = useState<Date | null>(null);
 
-  async function executarAnálise() {
+  async function executarAnalise() {
     try {
       setAnalisando(true);
       const res = await decisaoService.analisar();
       setResultado(res);
-      setUltimaAnálise(new Date());
+      setUltimaAnalise(new Date());
       setToast({ mensagem: `${res.total_clientes_analisados} clientes analisados com sucesso`, tipo: 'sucesso' });
     } catch (err) {
       setToast({
@@ -32,7 +32,7 @@ export default function DecisãoPage() {
   }
 
   const altosRisco = resultado?.resultados.filter(r => r.classificacao_churn === 'alto').length ?? 0;
-  const altaPropensão = resultado?.resultados.filter(r => r.classificacao_propensão === 'alta').length ?? 0;
+  const altaPropensao = resultado?.resultados.filter(r => r.classificacao_propensao === 'alta').length ?? 0;
 
   return (
     <div>
@@ -55,7 +55,7 @@ export default function DecisãoPage() {
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px', marginTop: '8px' }}>
             <button
-              onClick={executarAnálise}
+              onClick={executarAnalise}
               disabled={analisando}
               style={{
                 padding: '11px 22px', backgroundColor: analisando ? '#6B6B65' : '#1A1A18',
@@ -69,9 +69,9 @@ export default function DecisãoPage() {
             >
               {analisando ? 'analisando...' : 'executar análise'}
             </button>
-            {ultimaAnálise && (
+            {ultimaAnalise && (
               <span style={{ fontFamily: 'var(--fonte-mono)', fontSize: '9px', color: '#BBBAB4', letterSpacing: '0.08em' }}>
-                ultima análise: {ultimaAnálise.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                ultima análise: {ultimaAnalise.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
               </span>
             )}
           </div>
@@ -95,7 +95,7 @@ export default function DecisãoPage() {
           {[
             { codigo: '01', label: 'clientes analisados', valor: resultado.total_clientes_analisados },
             { codigo: '02', label: 'alto risco churn', valor: altosRisco, destaque: altosRisco > 0 },
-            { codigo: '03', label: 'alta propensão', valor: altaPropensão },
+            { codigo: '03', label: 'alta propensão', valor: altaPropensao },
             {
               codigo: '04',
               label: 'taxa média churn',

@@ -1,16 +1,9 @@
+import { handleResponse } from '@/lib/httpClient';
 import type { Pedido, CreatePedidoPayload, UpdatePedidoPayload } from '@/types/pedido';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
-async function handleResponse<T>(res: Response): Promise<T> {
-  if (!res.ok) {
-    const erro = await res.json().catch(() => ({ statusCode: res.status, message: 'erro desconhecido' }));
-    const mensagem = Array.isArray(erro.message) ? erro.message.join(', ') : erro.message;
-    throw new Error(mensagem);
-  }
-  if (res.status === 204) return undefined as T;
-  return res.json() as Promise<T>;
-}
+
 
 export const pedidosService = {
   async listarTodos(): Promise<Pedido[]> {

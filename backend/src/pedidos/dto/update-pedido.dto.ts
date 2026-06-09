@@ -1,5 +1,6 @@
 import { IsIn, IsNotEmpty } from 'class-validator';
-import type { StatusPedido } from '../entities/pedido.entity';
+
+export type StatusPedido = 'pendente' | 'confirmado' | 'cancelado';
 
 export class UpdatePedidoDto {
   @IsNotEmpty({ message: 'status e obrigatorio' })
