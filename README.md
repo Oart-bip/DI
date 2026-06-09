@@ -5,6 +5,9 @@
 ```bash
 cd backend
 npm install
+npx prisma generate
+npx prisma migrate dev --name init
+npx prisma db seed
 npm run start:dev
 ```
 
@@ -14,22 +17,13 @@ cd frontend
 npm install
 npm run dev
 ```
-
 Acesse: http://localhost:3000
 
-
-Para rodar o serviço Python (terceiro terminal):
+### Python 
+```bash
 cd ml
 pip install -r requirements.txt
 python -m uvicorn main:app --reload --port 8000
-
+```
 ---
 
-
-- cadastro de clientes feito
-- cadastro de produtos feito
-- criacao de pedidos feito
-- modulo de visualizacao de dados feito
-- Módulo de auxílio de decisão estratégica feito
-
-cada alteracao feita favor mencionar na descricao e dar commit
