@@ -12,6 +12,7 @@ export const pedidosService = {
     return handleResponse<Pedido[]>(res);
   },
 
+  // cria um novo pedido
   async criar(payload: CreatePedidoPayload): Promise<Pedido> {
     const res = await fetch(`${API_BASE}/pedidos`, {
       method: 'POST',
