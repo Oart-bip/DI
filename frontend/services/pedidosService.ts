@@ -22,6 +22,7 @@ export const pedidosService = {
     return handleResponse<Pedido>(res);
   },
 
+  // atualiza o status de um pedido
   async atualizarStatus(id: string, payload: UpdatePedidoPayload): Promise<Pedido> {
     const res = await fetch(`${API_BASE}/pedidos/${id}`, {
       method: 'PATCH',
