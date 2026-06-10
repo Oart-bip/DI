@@ -18,7 +18,7 @@ export const produtosService = {
     return handleResponse<Produto>(res);
   },
 
-  // cria um novo produto
+  // dai vai criar um novo produto
   async criar(payload: CreateProdutoPayload): Promise<Produto> {
     const res = await fetch(`${API_BASE}/produtos`, {
       method: 'POST',
