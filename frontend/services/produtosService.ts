@@ -12,7 +12,7 @@ export const produtosService = {
     return handleResponse<Produto[]>(res);
   },
 
-  // busca um produto pelo id
+  // ele vai buscar busca um produto pelo id ok
   async buscarPorId(id: string): Promise<Produto> {
     const res = await fetch(`${API_BASE}/produtos/${id}`, { cache: 'no-store' });
     return handleResponse<Produto>(res);
