@@ -1,3 +1,7 @@
+Integrantes: Arthur Nantes Trento, Gabriel Santos Palermo, Luiz Otávio, André Martins
+
+git clone https://github.com/Oart-bip/DI.git
+
 
 ## Como Rodar
 
