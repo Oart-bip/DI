@@ -32,6 +32,7 @@ export const pedidosService = {
     return handleResponse<Pedido>(res);
   },
 
+  // remove um pedido pelo id
   async remover(id: string): Promise<void> {
     const res = await fetch(`${API_BASE}/pedidos/${id}`, { method: 'DELETE' });
     return handleResponse<void>(res);
