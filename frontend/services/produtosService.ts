@@ -38,7 +38,7 @@ export const produtosService = {
     return handleResponse<Produto>(res);
   },
 
-  // remove um produto pelo id
+  // por fim vai remover um produto pelo id
   async remover(id: string): Promise<void> {
     const res = await fetch(`${API_BASE}/produtos/${id}`, { method: 'DELETE' });
     return handleResponse<void>(res);
