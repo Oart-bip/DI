@@ -6,6 +6,7 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 // servico responsavel pelas requisicoes de pedidos
 export const pedidosService = {
 
+  // retorna todos os pedidos cadastrados
   async listarTodos(): Promise<Pedido[]> {
     const res = await fetch(`${API_BASE}/pedidos`, { cache: 'no-store' });
     return handleResponse<Pedido[]>(res);
